@@ -1,0 +1,95 @@
+\documentclass[11pt]{article}
+\usepackage[shortlabels]{enumitem}
+\usepackage[margin=1in,headheight=15pt]{geometry}   % Adjusted headheight
+\usepackage{amsmath}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{cancel}
+\usepackage{amsfonts}
+\usepackage{setspace}
+
+% Set up fancy header/footer
+\pagestyle{fancy}
+\fancyhead[LO,L]{Jimmy Chen}
+\fancyhead[CO,C]{CSCI 2600 - Principles of Software}
+\fancyhead[RO,R]{February 29, 2024}
+\fancyfoot[LO,L]{}
+\fancyfoot[CO,C]{\thepage}
+\fancyfoot[RO,R]{}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\onehalfspacing
+
+\begin{document}
+\section{Problem 1}
+
+\subsection{Classify each public method of RatNum as either a creator, observer, producer, or mutator.}
+Creators:
+\begin{itemize}
+    \item \texttt{public RatNum(int n)}
+    \item \texttt{RatNum(int n, int d)}
+    \item \texttt{public static RatNum valueOf(String ratStr)}
+\end{itemize}
+
+\noindent Observers:
+\begin{itemize}
+    \item \texttt{public boolean isNaN()}
+    \item \texttt{public boolean isNegative()}
+    \item \texttt{public boolean isPositive()}
+    \item \texttt{@Override public int compareTo(RatNum rn)}
+    \item \texttt{@Override public double doubleValue()}
+    \item \texttt{@Override public int intValue()}
+    \item \texttt{@Override public float floatValue()}
+    \item \texttt{@Override public long longValue()}
+    \item \texttt{@Override public int hashCode()}
+    \item \texttt{@Override public boolean equals(/*@Nullable*/ Object obj)}
+    \item \texttt{@Override public String toString()}
+\end{itemize}
+
+\noindent Producers:
+\begin{itemize}
+    \item \texttt{public RatNum negate()}
+    \item \texttt{RatNum add(RatNum arg)}
+    \item \texttt{sub(RatNum arg)}
+    \item \texttt{mul(RatNum arg)}
+    \item \texttt{RatNum div(RatNum arg)}
+
+\end{itemize}
+
+\noindent Mutators: None (states in lecture that Poly is an immutable class, so it has no mutators)
+
+\subsection{add, sub, mul, and div all require that arg != null. This is because all of these methods
+access fields of arg without checking if arg is null first. But these methods also access fields
+of this without checking for null; why is this != null absent from the requires clause
+for these methods?}
+These methods directly access fields of the argument (RatNum) without prior null checks since the input is anticipated to be fully formed, and none of the constructors introduce nullable values. Therefore, it's unlikely for individual fields within the object to be null without the entire object being null itself.
+\subsection{Why is RatNum.valueOf(String) a class method (has \texttt{static} modifier)? What alternative
+to class methods would allow someone to accomplish the same goal of generating a RatNum
+from an input String?}
+
+The static modifier is applied to the valueOf(String) method because it operates solely on the input string to produce a new RatNum instance, without relying on any instance-specific information from the class. An alternative approach to using class methods is to create a utility class with equivalent functionality.
+
+\subsection{add, sub, mul, and div all end with a statement of the form return new RatNum (numerExpr,
+denomExpr);. Imagine an implementation of the same function except the last statement is:
+\texttt{
+\\    this.numer = numerExpr;
+\\    this.denom = denomExpr;
+\\    return this;
+}
+\\For this question, pretend that the this.numer and this.denom fields are not declared as
+final so that these assignments compile properly. How would the above changes fail to meet
+the specifications of the function (hint: take a look at the @requires and @modifies clauses,
+or lack thereof) and fail to meet the specifications of the RatNum class?}
+The modifications wouldn't meet the function's requirements because both the @requires and @modifies clauses specify that 'this' and 'arg' must not be null. Likewise, they wouldn't meet the RatNum class specifications due to the same conditions.
+Also the @modifies would also need additional statements stating that we are modifying the numer and
+denom.
+
+\subsection{Calls to checkRep() are supposed to catch violations in the classes’ invariants. In general, it
+is recommended to call checkRep() at the beginning and end of every method. In the case of
+RatNum, why is it sufficient to call checkRep() only at the end of constructors? (Hint: could
+a method ever modify a RatNum such that it violates its representation invariant? Could a
+method change a RatNum at all? How are changes to instances of RatNum prevented?)}
+
+Calling checkRep() only at the end of constructors is enough because the RatNum class is immutable. This immutability stems from the fact that the fields are final and the methods do not alter them. The purpose of invoking checkRep() at the end of constructors is to guarantee that the RatNum instance is initialized with the accurate values.
+When we do change values of RatNum, we are actually creating a new RatNum object with the new values and returning that. This is why we can call checkRep() at the end of the constructors and not have to worry about it in the other methods.
+\end{document}

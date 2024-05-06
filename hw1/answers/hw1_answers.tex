@@ -1,0 +1,453 @@
+% this package changes the paragraph style to skip a line before a new paragraph rather than indenting% font size
+\documentclass[11pt]{article}
+\usepackage{fullpage,parskip,amsmath,amssymb,algorithm2e,enumitem,graphicx}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{listings}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=blue,
+    pdftitle={Overleaf Example},
+    pdfpagemode=FullScreen,
+    }
+\usepackage{xcolor}
+
+\parindent24pt
+\pagestyle{empty}
+
+\newcommand{\n}{\newcommand%
+}
+\renewcommand{\r}{\renewcommand%
+}
+\SetAlgoLined
+\r{\bf}{\textbf}
+\r{\it}{\textit}
+\n{\ol}{\overline}
+\n{\ul}{\underline}
+\n{\unspace}{\vspace{-2.15em}}
+\AtBeginEnvironment{align}{\setcounter{equation}{0}\vspace{-18pt}}
+\AtBeginEnvironment{flalign}{\setcounter{equation}{0}}
+\AtBeginEnvironment{align}{\unspace}
+\AtBeginEnvironment{align*}{\unspace}
+\AtBeginEnvironment{flalign}{\unspace}
+\AtBeginEnvironment{flalign*}{\unspace}
+\AtBeginEnvironment{algorithm}{\Indp}
+\setenumerate[1]{label=\bf{(\arabic*)}}
+\n{\note}[1]{\it{Note: }#1}
+\newenvironment{proof}[1]{\it{pf: }This is a proof by #1.\par \begin{itemize}}{\end{itemize}}
+\SetKwBlock{Blk}{}{}
+\n{\Fn}[3]{\KwSty{Function} \ArgSty{#1(#2)}\Blk{#3}}
+
+\lstset{ %
+  backgroundcolor=\color{white},   % choose the background color
+  basicstyle=\footnotesize,        % size of fonts used for the code
+  breaklines=true,                 % automatic line breaking only at whitespace
+  captionpos=b,                    % sets the caption-position to bottom
+  commentstyle=\color{mygreen},    % comment style
+  escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+  keywordstyle=\color{blue},       % keyword style
+  stringstyle=\color{mymauve},     % string literal style
+}
+
+\newcommand\myrepeat[2]{%
+  \begingroup
+  \lccode`m=`#2\relax
+  \lowercase\expandafter{\romannumeral#1000}%
+  \endgroup
+}
+
+\begin{document}
+
+\noindent\boxed{
+\begin{tabular*}{\textwidth}{@{}l@{\extracolsep{\fill}}r@{}}
+CSCI 2600 --- Principles of Software\\\\
+\multicolumn{2}{c}{\huge{Jimmy Chen - Homework 1}}\\ % feel free to edit this as you wish!
+\end{tabular*}}
+\par
+
+
+\section*{Problems}
+\label{sec:Problems}
+
+{\large\textbf{Problem 1 (12 pts., 2 pts. each): Condition Strength}}
+\newline
+\noindent Order conditions from \textbf{the strongest to the weakest} by showing the longest implication chain of the form A $\rightarrow$ B $\rightarrow$ C $\rightarrow$ D \dots (where A, B, C, D, \dots are given conditions, $\rightarrow$ is implication). If total ordering by strength cannot be established, show all partial orderings. Prove by showing all implications. If any implication is false, provide a counterexample. You must show all work in order to get full credit. Unless otherwise stated, assume all referenced variables are defined as integers.
+
+\begin{enumerate}
+
+\item A = \{ x = 2k + 1 $\land$ x = x + 1 $\land$ y = 10 \}\\
+B = \{ x is divisible by 6 $\land$ y = x + 2 \} \\
+C = \{ x = 18 $\land$ y = 20 \} \\
+D = \{ x \% 2 = 0 $\land$ y is even \} \\
+
+Implication Chain: $(C) \rightarrow (D) \rightarrow (B) \rightarrow (N/A)$ \\
+Proof of implication: $A \rightarrow B:$ A isn't in the ordering since it's a invalid statement. We have x = 18, and y = 20, so x can't be sum 2k+1. But for the rest,
+since x is divisible by 6, then x is even, and y = x + 2, so y is even. So B is stronger than D. And D is stronger than C.
+\item A = \{ 5 $\le$ k $<$ 5 \}\\
+B = \{ k $\ge$ -10 \} \\
+C = \{ -10 $<$ k $\le$ 1 \} \\
+D = \{ 10 $\le$ k $\le$ -10 \}\\
+
+Implication Chain: $(B) \rightarrow (C) \rightarrow (N/A) \rightarrow (N/A)$ \\
+Proof of implication: $A \rightarrow B:$ A and D isn't in the ordering since it's a invalid statement. We have k $\ge$ -10, so B is stronger than C as it implies that k is between -10 and 1.
+
+\item A = \{ x $\ge$ 0 $\land$ y $>$ x \} \\
+B = \{ x = 3 $\land$ y $>$ 10 \} \\
+C = \{ x = y \% 10 \} \\
+D = \{ xy = 0 \} \\
+E = \{ x $>$ 1 $\lor$ y $>$ 1 \} \\
+
+Implication Chain: $(A) \rightarrow (B) \rightarrow (N/A) \rightarrow (N/A) \rightarrow (N/A)$ \\
+Proof of implication: $A \rightarrow B:$ True % fill in true/false! if false, provide a counterexample
+...
+\newpage
+\item Recall the names for infinite sets of numbers used in math (e.g., see ``Peter Jephson Cameron (1998). \textit{Introduction to Algebra}. Oxford University Press. p. 4. ISBN 978-0-19-850195-4.'')
+A = \{ z $\in \mathbb{Q}$ \} \\
+B = \{ z = $\sqrt{-1}$ \} \\
+C = \{ z $\in \mathbb{N}$ \} \\
+D = \{ z = m / n \} \\
+E = \{ z $\in \mathbb{Z}$ \} \\
+F = \{ z = y \% 2 \} \\
+G = \{ z $\in \mathbb{R}$ \} \\
+H = \{ z = y / 2 \} \\
+
+Implication Chain: $(C) \rightarrow (E) \rightarrow (A) \rightarrow (D) \rightarrow (G)$ \\
+Proof of implication: $A \rightarrow B:$ This implication is false because z can't be mod 2 as it includes only 0 and 1, which doesn't follow the logic chain. Z being a quotient of two numbers doesn't imply that z is a real number. So the implication chain is invalid. 
+...
+
+\item A = \{ -7 $<$ x $<$ 0 \} \\
+B = \{ y = log(x) \} \\
+C = \{ -5 $<$ x $\le$ 10 \} \\
+D = \{ x = 1 $\land$ y $\ge$ 1 \} \\
+E = \{ -1 $\le$ x $\le$ 1 \} \\
+
+Implication Chain: $(E) \rightarrow (C) \rightarrow (D)$ \\
+Proof of implication: $A \rightarrow B:$ This is false because x being between -1 and 1 shows that it is also between -5 and 10, and contains the value of 1. y=(logx) wont work because if it is 1, then y must equal 0, but that statement is false. So the implication chain is invalid.
+
+\item 
+\texttt{Assume "result is a double" and $|\cdot|$ is the absolute value operator.}\\
+A = \{ \texttt{|result - sin(x)|} $\le$ 1 \} \\
+B = \{ \texttt{|result - sin(x)|} $\le$ 0.01 \} \\
+C = \{ \texttt{|result - sin(x)|} $\le$ 10$^{-10}$ \} \\
+D = \{ \texttt{|result - sin(x)|} $\le$ -0.01 \} = \{ false \} \\
+E = \{ \texttt{|result - sin(x)|} $\ge x^2$ \} \\
+
+Implication Chain: $(C) \rightarrow (B) \rightarrow (A)$
+\newline
+Proof of implication: $A \rightarrow B:$ This is True
+...
+
+\end{enumerate}
+
+\newpage
+
+\noindent {\large\textbf{Problem 2 (4 pts., 1 pt. each): Hoare Triples}}
+\newline
+\noindent State whether each Hoare triple is valid. If it is invalid, explain why and show how you would modify the the postcondition to make it valid. Unless otherwise stated, assume all referenced variables are defined as integers.
+
+\begin{enumerate}
+\item \texttt{\{ x = 5 \}}
+\begin{lstlisting}[language=java,basicstyle=\ttfamily]
+x = x * 2;
+\end{lstlisting}
+\texttt{\{ x = 10 $\lor$ x $\neq$ 0\}}
+
+Valid or Invalid: (Valid)
+
+\item \texttt{\{ $\sqrt{x-1}$ > k \}}
+\begin{lstlisting}[language=java,basicstyle=\ttfamily]
+x = x + 1;
+\end{lstlisting}
+\texttt{\{ k $\geq$ 0\}}
+
+Valid or Invalid: (Invalid)\\
+It's invalid because if the value of x is a negative number, then the square root of x-1 will be an imaginary number. To fix this, we can modify the postcondition to \texttt{\{ k $\geq$ 0 $\land$ x $\geq$ 1\}} as one valid solution.
+
+\item \texttt{\{ i + j $\neq$ 0 $\land$ i $\cdot$ j $\neq$ 0\}}
+\begin{lstlisting}[language=java,basicstyle=\ttfamily]
+i = j - 1;
+j = i + 1;
+\end{lstlisting}
+\texttt{\{ (i = 0 $\lor$ i $\neq$ -j) $\land$ k $\in \mathbb{Q}$ \}}
+
+Valid or Invalid: (Valid)
+
+\item \texttt{\{ n < 0 $\land$ n = $\sqrt{m}$ \}}
+\begin{lstlisting}[language=java,basicstyle=\ttfamily]
+if (n > m)
+  x = n;
+else
+  y = m;
+\end{lstlisting}
+\texttt{\{ x $\neq$ y \}}
+
+Valid or Invalid: (Invalid)\\
+It's invalid because you cant have a negative number as the square root of a number. To fix this, we can modify the precondition to \texttt{\{ n $\geq$ 0 $\land$ n = $\sqrt{m}$ \}} as one valid solution.
+\end{enumerate}
+
+\newpage
+
+\noindent {\large \textbf{Problem 3 (4 pts., 1 pt. each): General Hoare Triples}} \\
+
+A, B, C, D, E, and F are logical conditions (logical formulas). The following are true:
+
+\begin{itemize}
+\item A $\rightarrow$ B (A implies B, i.e., A is stronger than B)
+\item B $\rightarrow$ C
+\item C $\rightarrow$ B
+\item D $\rightarrow$ E
+\item E $\rightarrow$ F
+\item \{ B \} code \{ E \}
+\end{itemize}
+ 
+Indicate whether the following Hoare triples are valid or possibly invalid. 
+If possibly invalid, prove by giving an example.
+
+\begin{enumerate}
+\item \texttt{\{C\} code \{D\}} Valid or Possibly Invalid: (Invalid)
+\\One example of a possibly invalid case is if C is true and D is false. This would mean that C $\rightarrow$ B is true, but B $\rightarrow$ C is false. This would make the Hoare triple invalid.
+\item \texttt{\{B\} code \{C\}} Valid or Possibly Invalid: (Valid)
+\\B implies C, so the Hoare triple is valid.
+\item \texttt{\{A\} code \{D\}} Valid or Possibly Invalid: (Invalid)
+\\One example of a possibly invalid case is when A implies B, which implies C, but it never implies D.
+\item \texttt{\{A\} code \{F\}} Valid or Possibly Invalid: (Valid)
+\\A implies B, which implies C, which implies B, which implies E, which implies F. So A implies F, making the Hoare triple valid.
+\end{enumerate}
+
+\noindent {\large \textbf{Problem 4 (8 pts., 1 pt. for each condition): Forward reasoning}}
+\newline
+For each code snippet with the given precondition, find the \textbf{strongest postcondition} by inserting the appropriate condition in each blank. The first intermediate condition in part (1) is supplied as an example. Please simplify your answers as much as possible. Assume all referenced variables are defined as integers.
+\newline
+
+Copy all code to your answer file and fill in the blanks. Carry all variables forward. Show all work.
+
+\begin{enumerate}
+\item \texttt{\{ z $\neq$ 0 \}
+\newline
+y = 0;
+\newline
+\hspace*{0.5cm} \textcolor{red}{\{ y = 0 $\land$  z $\neq$ 0 \}}
+\newline
+x = y + 2;
+\newline
+\hspace*{0.5cm}\{ x = 2 $\land$ y = 0 $\land$ z $\neq$ 0 \} % fill in the bracket! be sure to simplify!
+\newline
+z = x + y;
+\newline
+\{  x = 2 $\land$ y = 0 $\land$ z = 2 \}
+\newline
+}
+
+\newpage
+\item \texttt{\{ |x| $>$ 5 \}
+\newline
+x = x \% 10;
+\newline
+\hspace*{0.5cm}\{ 0 $\leq$ |x| $\leq$ 9 \}
+\newline
+x = x * x;
+\newline
+\hspace*{0.5cm}\{ 0 $\leq$ |x| $\leq$ 81 \}
+\newline
+x = -x;
+\newline
+\{ -81 $\leq$ |x| $\leq$ 0 \}
+}
+
+\item \texttt{\{ z < 5 \}
+\newline
+if (z >= 0) \{
+\newline
+\hspace*{0.5cm}\{ 0 $\leq$ z $<$ 5 \}
+\newline
+z = -z;
+\newline
+\hspace*{0.5cm}\{ -5 < z $\leq$ 0 \}
+\newline
+\}
+\newline
+\{ z $\leq$ 0 \}
+\newline
+}
+\end{enumerate}
+
+\noindent {\large \textbf{Problem 5 (11 pts., 0.5 pts. each condition): Backward reasoning}}
+\newline
+\noindent Find the \textbf{weakest precondition} of each code sequence by inserting the appropriate condition in each blank. The first intermediate condition in part (1) is supplied as an example.
+Please simplify your answers as much as possible. Assume all referenced variables are defined as integers. Use the \verb*|wp()| notation as shown in the first example.
+
+\begin{enumerate}
+
+\item \texttt{\{ wp("x = -1", y $>$ -3x $\land$ y $<$ 10 - 3x ) } = { y $>$ 3 $\land$ y $<$ 13 \} % fill in the blank! be sure to simplify!
+\newline
+x = -1;
+\newline
+\hspace*{0.5cm} \textcolor{red}{\{ wp("z = 2 * y + x", 0 $<$ z $<$ 10) \} = \{ 0 $<$ 2y + x $<$ 10 \} = 
+\newline
+\hspace*{0.5cm} \{ x $>$ -2y $\land$ x $<$ 10 - 2y \}}
+\newline
+z = 3 * x + y;
+\newline
+ \{ 0 $<$ z $<$ 10 \}}
+
+\item \texttt{\ wp("if (y > 0)", (x > y $\land$ y > 0) $\land$ (False)) } = { x $>$ y $\land$ y $>$ 0 \}
+\newline
+if (y $>$ 0) \{
+\newline
+\hspace*{1cm}\{ wp("x = x / y", x $>$ 1 $\land$ y = 0) } = { x $>$ y $\land$ y $> $0 \}
+\newline
+\hspace*{0.5cm} x = x / y;
+\newline
+\hspace*{1cm}\{ wp("y = 0", x $>$ 1 $\land$ y = 0) } = { x $>$ 1 $\land$ y = 0 \}
+\newline
+\hspace*{0.5cm} y = 0;
+\newline
+\hspace*{1cm}\{  $\land$ x $>$ 1 \}
+\newline
+\} else \{
+\newline
+\hspace*{1cm}\{ wp("y = 4 * x", x $>$ 1 $\land$ y = 0) } = { Statement isn't possible so else statement \}
+\newline
+\hspace*{0.5cm} y = 4 * x;
+\newline
+\hspace*{1cm}\{ y = 0 $\land$ x $>$ 1 \}
+\newline
+\}
+\newline
+ \{ y = 0 $\land$ x $>$ 1 \}
+
+\newpage
+\item \texttt{\{ wp("if (x $\geq$ 0)", min(z,x) $\neq$ 0 $\land$ y $\geq$ 0 $\lor$ min(z,x) $\geq$ -y)} = { min(z,x) $\neq$ 0 $\land$ y $\geq$ 0 $\lor$ min(z,x) $\geq$ -y \}
+\newline
+if (x $\geq$ 0) \{
+\newline
+\hspace*{1cm}\{ wp("z = Math.min(z,x)", z $\neq$ 0 $\wedge$ y $\geq$ 0 $\vee$ z $\geq$ -y) } = { min(z,x) $\neq$ 0 $\wedge$ y $\geq$ 0 $\vee$ min(z,x) $\geq$ -y \}
+\newline
+\hspace*{0.5cm} z = Math.min(z, x);
+\newline
+\hspace*{1cm}\{ wp("x = z + y", z $\neq$ 0 $\wedge$ y $\geq$ 0 $\vee$ x $\geq$ 0) } = { z $\neq$ 0 $\wedge$ y $\neq$ 0 $\vee$ z $\geq$ -y \}
+\newline
+\hspace*{0.5cm} x = z + y;
+\newline
+\hspace*{1cm}\{ z $\neq$ 0 $\wedge$ y $\geq$ 0 $\vee$ x $\geq$ 0 \}
+\newline
+\}
+\newline
+\{ z $\neq$ 0 $\land$ y $\geq$ 0 $\lor$ x $\geq$ 0\}}
+
+
+\item
+\texttt{\{ wp("if (Math.abs(x) $\leq$ 5)", (-1 $\leq$ x $\leq$ 5) $\vee$ (-9 $\leq$ x $\leq$ 1)) } = { -9 $\leq$ x $\leq$ 5 } if (Math.abs(x) $\leq$ 5) \}
+\newline
+if (Math.abs(x) $<$= 5) \{
+\newline
+\hspace*{1cm}\{ { wp("z = x-2", -3 $\leq$ z $\leq$ 3) } = { -1 $\leq$ x $\leq$ 5 } z = x - 2; \}
+\newline
+\hspace*{0.5cm} z = x - 2;
+\newline
+\hspace*{1cm}\{ -3 $\leq$ z $\leq$ 3 \}
+\newline
+\} else \{
+\newline
+\hspace*{1cm}\{ wp("if (x $\leq$ -5)", (-9 $\leq$ x $\leq$ -3) $\vee$ (-1 $\leq$ x $\leq$ 1)) = { -9 $\leq$ x $\leq$ 1 }\}
+\newline
+\hspace*{0.5cm}if (x $<$= -5) \{
+\newline
+\hspace*{1.5cm}\{ { wp("z = x + 6", -3 $\leq$ z $\leq$ 3) } = { -9 $\leq$ x $\leq$ -3 }\}
+\newline
+\hspace*{1cm}z = x + 6;
+\newline
+\hspace*{1.5cm}\{ -3 $\leq$ z $\leq$ 3 \}
+\newline
+\hspace*{0.5cm}\} else \{
+\newline
+\hspace*{1.5cm}\{ { wp("z = 3 * x", -3 $\leq$ z $\leq$ 3) } = { -1 $\leq$ x $\leq$ 1 }\}
+\newline
+\hspace*{1cm}z = 3 * x;
+\newline
+\hspace*{1.5cm}\{ -3 $\leq$ z $\leq$ 3 \}
+\newline
+\hspace*{0.5cm}\}
+\newline
+\hspace*{1cm}\{ { -3 $\leq$ z $\leq$ 3 \}
+\newline
+\}
+\newline
+\{ {-3 $\leq$ z $\leq$ 3 \} }
+
+\item \texttt{\{ wp("x = y / 2", x $\neq$ 0.5 $\wedge$ x $>$ -1) } = { y $\neq$ 1 $\wedge$ y $>$ -2 \}
+\newline
+x = y / 2;
+\newline
+\hspace*{0.5cm}\{ wp("z = x + 1", x $\neq$ 0.5 $\wedge$ z $>$ 0) } = { x $\neq$ 0.5 $\wedge$ x $>$ -1 \}
+\newline
+z = x + 1;
+\newline
+\{ x $\neq$ 0.5 $\land$ z $>$ 0\}}
+}}
+\end{enumerate}
+
+\newpage
+
+\noindent {\large \textbf{Problem 6 (10 pts., 1 pt. each condition, 1 pt. sufficient/insufficient): Verifying Correctness}}
+\newline
+For each block of code, fill in all the conditions, then use them to state whether the precondition is sufficient to guarantee the postcondition. If the precondition is insufficient, explain why.
+\newline
+
+\noindent Hint: Use backward reasoning to find the weakest precondition that guarantees the postcondition and see if the given precondition is strong enough to guarantee the postcondition. In other words, is the given precondition not stronger than the weakest precondition?
+\newline
+
+\noindent Copy all code to your answer file and fill in the blanks. Answers must be expressed in the format \verb*|wp("code", condition) = precondition|. Show all work. Assume all referenced variables are defined as integers.
+
+\begin{enumerate}
+\item \texttt{\{ x < 2 \}
+\newline
+\hspace*{0.5cm}\{ x $<$ 2 \} % fill in the blank! be sure to simplify!
+\newline
+z = x - z;
+\newline
+\hspace*{0.5cm}\{ wp("w = x - 1", w $>$ 2) \}
+\newline
+w = x - 1;
+\newline
+\hspace*{0.5cm}\{ wp("z = w - 1", z $>$ 1) \}
+\newline
+z = w - 1;
+\newline
+\{z > 1\}}
+\newline
+Sufficient or Insufficient: \texttt{\{ Insufficient because our precondition won't guarantee that our postcondition is true, but to guarantee it, use x > 3 \}} % be sure to explain if insufficient!
+
+\item \texttt{\{ x = y $\land$ y $$>$$ 0 $\lor$ y $\neq$ x $\land$ x $\ge$ 0 \}
+\newline
+\hspace*{0.5cm}
+\{ wp("if (x $<$ y)", (x $\geq$ y $\wedge$ x $<$ y $\wedge$ y $>$ 0) $\vee$ (x $<$ y $\wedge$ x $\leq$ y $\wedge$ x $\geq$ 1))} = { x = y $\wedge$ y $>$ 0 $\vee$ x $<$ y $\wedge$ x $\geq$ 1  \}
+\newline
+if (x $<$ y) \{
+\newline
+\hspace*{1cm}\{ wp("x- -", x $<$ y $\wedge$ x $\geq$ 0) } = { x $\leq$ y $\wedge$ x $\geq$ 1 \}
+\newline
+\hspace*{0.5cm}x--;
+\newline
+\hspace*{1cm}\{ x $<$ y $\wedge$ x $\geq$ 0  \}
+\newline
+\} else \{
+\newline
+\hspace*{1cm}\{ wp("x = y / 2", x $<$ y $\wedge$ x $\geq$ 0) } = { x $<$ y $\wedge$ y $>$ 0 \}
+\newline
+\hspace*{0.5cm}x = y / 2;
+\newline
+\hspace*{1cm}\{ x $<$ y $\wedge$ x $\geq$ 0 \}
+\newline
+\}
+\newline
+\{ x $<$ y $\land$ x $\ge$ 0\}}
+\newline
+Sufficient or Insufficient: \texttt{\{ Insufficient because our precondition won't guarantee that our postcondition is true, but to guarantee it, use x = y \}}
+\end{enumerate}
+\end{document}
+

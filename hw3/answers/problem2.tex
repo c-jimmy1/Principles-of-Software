@@ -1,0 +1,39 @@
+\documentclass[11pt]{article}
+\usepackage[shortlabels]{enumitem}
+\usepackage[margin=1in,headheight=15pt]{geometry}   % Adjusted headheight
+\usepackage{amsmath}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{cancel}
+\usepackage{amsfonts}
+\usepackage{setspace}
+
+% Set up fancy header/footer
+\pagestyle{fancy}
+\fancyhead[LO,L]{Jimmy Chen}
+\fancyhead[CO,C]{CSCI 2600 - Principles of Software}
+\fancyhead[RO,R]{February 29, 2024}
+\fancyfoot[LO,L]{}
+\fancyfoot[CO,C]{\thepage}
+\fancyfoot[RO,R]{}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\onehalfspacing
+
+\begin{document}
+\section{Problem 2}
+
+\subsection{We have chosen the array representation of a polynomial: RatNum[] coeffs, where coeffs[i]
+stores the coefficient of the term of exponent i. An alternative data representation is the
+list-of-terms representation: List<Term> terms, where each Term object stores the term’s
+RatNum coefficient and integer exponent. The beauty of the ADT methodology isthat we
+can switch from one representation to the other without affecting the clients of our RatPoly.
+Briefly list the advantages and disadvantages of the array representation versus the list-ofterms representation.
+}
+Using an array has the advantage of it being easier to index, since each index corresponds to the exponent of the coefficient. This makes it easier to perform operations such as addition and multiplication. However, the array representation has the disadvantage of being less flexible. If we want to add a term with a higher exponent than the current highest exponent, we would have to resize the array. The list-of-terms representation has the advantage of being more flexible, since we can add terms with any exponent without having to resize the list. However, the list-of-terms representation has the disadvantage of being less efficient, since we would have to iterate through the list to find the term with the same exponent in order to perform operations such as addition and multiplication.
+\subsection{Where did you include calls tocheckRep() in RatPoly (at the beginning of methods, the
+end of methods, the beginning of constructors, the end of constructors, some combination)?
+Why?}
+I included the checkRep() method at the end of the constructors and at the end of the methods. I did this because the constructors and methods are the only places where the RatPoly object is modified. By checking the representation at the end of these methods, we can ensure that the object is always valid.
+
+\end{document}
